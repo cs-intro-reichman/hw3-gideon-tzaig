@@ -84,9 +84,9 @@ public class Anagram {
 
 		// create new anagram randomly
 		while (i < originalAng.length()) {
-			int indexToRemove = (int) Math.round(Math.random() * originalAng.length());
+			int indexToRemove = (int) Math.floor((Math.random() * originalAng.length()));
 			if (indexToRemove >= originalAng.length()) {
-				newAng = newAng + originalAng.charAt(indexToRemove - 1);
+				newAng = newAng + originalAng.charAt(indexToRemove);
 				originalAng = originalAng.substring(0, indexToRemove); // indexToRemove;
 			}
 			else {
