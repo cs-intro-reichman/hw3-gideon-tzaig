@@ -36,22 +36,19 @@ public class Anagram {
 		
 		// compare any char between the two strings 
 		while (i < firstAng.length()) {
-			int j = 0;
-			while (j < secondAng.length()) {
+			for (int j = 0; j < secondAng.length();	j ++) {
 				if (firstAng.charAt(i) == secondAng.charAt(j)) {
 					finalList = finalList + firstAng.charAt(i);
+					secondAng = secondAng.substring(0, j) + secondAng.substring(j + 1);
 				}
-				j ++;
-				continue;
 			}
 			i ++;
 		}
-
+		
 		// compare final lists
 		if (finalList.length() == firstAng.length()) return true;
 			
 		
-		System.out.println(finalList);
 		return false;
 	}
 	   
@@ -81,17 +78,27 @@ public class Anagram {
 	public static String randomAnagram(String str) {
 		// setting variablest
 		String originalAng = preProcess(str);
+		String untouchedAng = preProcess(str);
 		String newAng = "";
 		int i = 0;
 
 		// create new anagram randomly
 		while (i < originalAng.length()) {
 			int indexToRemove = (int) Math.round(Math.random() * originalAng.length());
-			newAng = newAng + originalAng.charAt(indexToRemove);
-			originalAng = ""; // indexToRemove;
+			if (indexToRemove >= originalAng.length()) {
+				newAng = newAng + originalAng.charAt(indexToRemove - 1);
+				originalAng = originalAng.substring(0, indexToRemove); // indexToRemove;
+			}
+			else {
+				newAng = newAng + originalAng.charAt(indexToRemove);
+				originalAng = originalAng.substring(0, indexToRemove) + originalAng.substring(indexToRemove + 1); // indexToRemove;
+			}
 			continue;
 		}
 
-		return newAng;
+		// verify new anagram
+		if (newAng.length() == untouchedAng.length()) return newAng;
+		
+		else return "";
 	}
 }
